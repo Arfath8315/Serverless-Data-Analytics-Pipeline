@@ -1,0 +1,7 @@
+[API Gateway] --> [Lambda Function] --> [S3 Bucket]
+                                        |
+                                [AWS Glue Job] (clean/transform)
+                                        |
+                                [Athena Query / Redshift]
+                                        |
+                              [Amazon QuickSight Dashboard]
