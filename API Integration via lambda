@@ -1,0 +1,15 @@
+import requests, json, boto3
+from datetime import datetime
+
+def lambda_handler(event, context):
+    city = "Kurnool"
+    API_KEY = "your_api_key"
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    data = response.json()
+
+    s3 = boto3.client('s3')
+    filename = f"weather_data/{city}_{datetime.now().strftime('%Y%m%d%H%M%S')}.json"
+    s3.put_object(Bucket="your-s3-bucket", Key=filename, Body=json.dumps(data))
+
+    return {"status": "Success", "file": filename}
